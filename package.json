@@ -1,0 +1,43 @@
+{
+  "name": "gadrealty",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Gad Gazette: gadrealty.com",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/with-db.mjs --migrate next dev",
+    "build": "node scripts/with-db.mjs --migrate next build",
+    "vercel-build": "payload migrate && next build",
+    "start": "node scripts/with-db.mjs next start",
+    "typecheck": "tsc --noEmit",
+    "payload": "node scripts/with-db.mjs payload",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "db:migrate": "node scripts/with-db.mjs payload migrate",
+    "seed": "node scripts/with-db.mjs --migrate payload run src/seed.ts",
+    "import:old": "node scripts/with-db.mjs --migrate payload run src/import-old-site.ts",
+    "seed:clear": "node scripts/with-db.mjs --migrate payload run src/seed.ts -- --clear",
+    "import:listings": "node scripts/with-db.mjs --migrate payload run src/import-scraped.ts"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "3.92.0",
+    "@payloadcms/email-resend": "3.92.0",
+    "@payloadcms/next": "3.92.0",
+    "@payloadcms/richtext-lexical": "3.92.0",
+    "@payloadcms/storage-vercel-blob": "3.92.0",
+    "graphql": "^16.8.1",
+    "next": "16.4.3",
+    "payload": "3.92.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.11",
+    "@electric-sql/pglite-socket": "0.2.14",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0"
+  }
+}

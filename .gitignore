@@ -1,0 +1,31 @@
+# dependencies
+node_modules
+
+# next
+.next
+out
+next-env.d.ts
+
+# local environment and database
+.env
+.env.local
+.env*.local
+/.data
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# uploaded photos and films (use Vercel Blob in production)
+/media
+
+# photographs copied from the old gadrealty.com (the list of homes, listings.json, is kept)
+/data/old-site/images
+/data/old-site/agents
+
+# misc
+.DS_Store
+*.log
+*.tsbuildinfo
+.vercel
+.env*

@@ -1,0 +1,11 @@
+/* Gentle touches so the back office feels like the Gazette. */
+:root {
+  --font-body: Georgia, 'Times New Roman', serif;
+}
+
+.template-default .doc-header__title,
+.collection-list__header h1,
+.dashboard__label {
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.01em;
+}
