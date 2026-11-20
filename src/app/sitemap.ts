@@ -3,6 +3,7 @@ import type { MetadataRoute } from 'next'
 import { getArticles, getAvailableListings, getClosedListings, getNeighborhoods } from '@/lib/data'
 import { getAreas, getBuildings } from '@/lib/places'
 import { SITE_URL } from '@/lib/site'
+import { TIPS } from '@/lib/tips'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,6 +25,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...[...available, ...closed].map((l) => ({
         url: `${SITE_URL}/homes/${l.slug}`,
         lastModified: l.updatedAt,
+      })),
+      ...TIPS.map((tip) => ({
+        url: `${SITE_URL}/tip-of-the-week/${tip.slug}`,
+        changeFrequency: 'monthly' as const,
       })),
       ...articles.map((a) => ({
         url: `${SITE_URL}/tip-of-the-week/${a.slug}`,

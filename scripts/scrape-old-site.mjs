@@ -22,7 +22,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms))
 async function get(url, binary = false) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const res = await fetch(url.replace('https://', 'http://'), { redirect: 'follow' })
+      const res = await fetch(url.replace('https://', 'http://'), { redirect: 'follow', signal: AbortSignal.timeout(180000) })
       if (!res.ok) return null
       return binary ? Buffer.from(await res.arrayBuffer()) : await res.text()
     } catch {
@@ -130,6 +130,10 @@ async function main() {
     await wait(200)
   }
   console.log(`[scrape] Found ${slugs.length} listings`)
+  if (slugs.length === 0) {
+    console.error('[scrape] The old site did not answer, so nothing was changed. Try again later.')
+    process.exit(1)
+  }
 
   // 2. Read each listing page and download its photographs.
   const listings = []

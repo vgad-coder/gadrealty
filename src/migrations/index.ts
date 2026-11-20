@@ -5,6 +5,7 @@ import * as migration_20261026_152652_add_other_site_links from './20261026_1526
 import * as migration_20261026_154901_remove_site_level_links from './20261026_154901_remove_site_level_links';
 import * as migration_20261026_221056_add_buildings from './20261026_221056_add_buildings';
 import * as migration_20261027_200500_enable_rls from './20261027_200500_enable_rls';
+import * as migration_20261028_113109_add_blob_object_key from './20261028_113109_add_blob_object_key';
 
 export const migrations = [
   {
@@ -35,11 +36,16 @@ export const migrations = [
   {
     up: migration_20261026_221056_add_buildings.up,
     down: migration_20261026_221056_add_buildings.down,
-    name: '20261026_221056_add_buildings'
+    name: '20261026_221056_add_buildings',
   },
   {
     up: migration_20261027_200500_enable_rls.up,
     down: migration_20261027_200500_enable_rls.down,
     name: '20261027_200500_enable_rls',
+  },
+  {
+    up: migration_20261028_113109_add_blob_object_key.up,
+    down: migration_20261028_113109_add_blob_object_key.down,
+    name: '20261028_113109_add_blob_object_key'
   },
 ];

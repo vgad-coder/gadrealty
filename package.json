@@ -17,7 +17,8 @@
     "seed": "node scripts/with-db.mjs --migrate payload run src/seed.ts",
     "import:old": "node scripts/with-db.mjs --migrate payload run src/import-old-site.ts",
     "seed:clear": "node scripts/with-db.mjs --migrate payload run src/seed.ts -- --clear",
-    "import:listings": "node scripts/with-db.mjs --migrate payload run src/import-scraped.ts"
+    "import:listings": "node scripts/with-db.mjs --migrate payload run src/import-scraped.ts",
+    "fill:agents": "node scripts/with-db.mjs --migrate payload run src/fill-agents.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.0",

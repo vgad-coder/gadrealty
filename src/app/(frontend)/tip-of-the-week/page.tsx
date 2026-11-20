@@ -1,7 +1,9 @@
 import { ArticleArchive, ArticleView } from '@/components/ArticleView'
+import { TipLibrary, TipView } from '@/components/TipView'
 import { getArticles } from '@/lib/data'
 import { getText } from '@/lib/locale'
 import { pageMetadata } from '@/lib/seo'
+import { tipOfTheWeek } from '@/lib/tips'
 
 export const metadata = pageMetadata({
   title: 'Tip of the Week',
@@ -9,23 +11,24 @@ export const metadata = pageMetadata({
   path: '/tip-of-the-week',
 })
 
+// A new tip takes over every Monday, so this page is built fresh for each visit.
+export const dynamic = 'force-dynamic'
+
+const WEEK = 7 * 86_400_000
+
 export default async function TipOfTheWeekPage() {
   const { locale, t } = await getText()
   const articles = await getArticles(locale)
-  const latest = articles.find((a) => a.kind === 'tip') ?? articles[0]
-  const others = articles.filter((a) => a.id !== latest?.id)
+
+  // A tip written in the back office wins for the week it is published. Otherwise the built-in tip of the week shows.
+  const written = articles.find((a) => a.kind === 'tip' && a.publishedOn && Date.now() - Date.parse(a.publishedOn) < WEEK)
+  const others = articles.filter((a) => a.id !== written?.id)
 
   return (
-    <main className="page">
-      {latest ? (
-        <ArticleView article={latest} t={t} locale={locale} />
-      ) : (
-        <header className="section-head">
-          <h1 className="section-head__title">{t.tip.title}</h1>
-          <p className="section-head__standfirst">{t.tip.noTips}</p>
-        </header>
-      )}
+    <main className="page page--narrow">
+      {written ? <ArticleView article={written} t={t} locale={locale} /> : <TipView tip={tipOfTheWeek()} t={t} thisWeek />}
       <ArticleArchive items={others} t={t} locale={locale} />
+      <TipLibrary t={t} />
     </main>
   )
 }
